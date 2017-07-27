@@ -10,8 +10,6 @@ function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "vscode-scalafmt" is now active!');
-
   let disposable = vscode.languages.registerDocumentFormattingEditProvider('scala', {
       provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
         try {

@@ -1,11 +1,19 @@
 {
   "name": "vscode-scalafmt",
-  "displayName": "vscode-scalafmt",
+  "displayName": "Scalafmt",
   "description": "Format Scala code using scalafmt",
   "version": "0.0.1",
   "publisher": "gabro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabro/vscode-scalafmt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gabro/vscode-scalafmt/issues"
+  },
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.13.0"
+    "vscode": "^1.5.0"
   },
   "categories": [
     "Formatters"
@@ -22,11 +30,13 @@
     "test": "node ./node_modules/vscode/bin/test",
     "build": "vsce package"
   },
+  "dependencies": {
+    "scalafmt": "^1.1.0-beta.1"
+  },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.40",
     "mocha": "^2.3.3",
-    "scalafmt": "^1.1.0-beta.1",
     "typescript": "^2.0.3",
     "vsce": "^1.29.0",
     "vscode": "^1.0.0"
