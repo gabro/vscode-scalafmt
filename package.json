@@ -22,7 +22,19 @@
     "*"
   ],
   "main": "./out/src/extension",
-  "contributes": {},
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Scalafmt configuration",
+      "properties": {
+        "scalafmt.configFilePath": {
+          "type": "string",
+          "description": "Path of the configuration file",
+          "default": "${workspaceRoot}/.scalafmt.conf"
+        }
+      }
+    }
+  },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -watch -p ./",
@@ -31,7 +43,7 @@
     "build": "vsce package"
   },
   "dependencies": {
-    "scalafmt": "^1.1.0-beta.1"
+    "scalafmt": "^1.1.0-beta.2"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
