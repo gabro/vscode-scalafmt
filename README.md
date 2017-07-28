@@ -32,6 +32,5 @@ or simply
 ### Automatically, on save
 It respects the `editor.formatOnSave` setting.
 
-## Extension Settings
-
-Currently none, work in progress ;-)
+## Configuration
+Work in progress: see #1.
