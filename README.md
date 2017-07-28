@@ -19,7 +19,7 @@ Open VS Code, open the Command Palette (`CMD + Shift + P`) and select `Install f
 
 ## How to use
 
-The extension integrates directly with the `Format Document` command of VSCode.
+The extension integrates directly with the `Format Document` and `Format Selection` commands of VSCode.
 
 ### Manually
 1. Open the Command Palette (`CMD + Shift + P`)
@@ -28,6 +28,8 @@ The extension integrates directly with the `Format Document` command of VSCode.
 or simply
 
 1. `Alt + Shift + F`
+
+Alternatively you can format a selection of lines and using `Format Selection` in the Command Palette (`CMD + K CMD + F`).
 
 ### Automatically, on save
 It respects the `editor.formatOnSave` setting.
