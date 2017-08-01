@@ -35,4 +35,4 @@ Alternatively you can format a selection of lines and using `Format Selection` i
 It respects the `editor.formatOnSave` setting.
 
 ## Configuration
-Work in progress: see #1.
+Create a `.scalafmt.conf` file as described in http://scalameta.org/scalafmt/#Configuration. By default the extension will look for this file in `${workspaceRoot}/.scalafmt.conf`. You can customize this path with the `scalafmt.configFilePath` setting of VS Code.
