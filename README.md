@@ -46,3 +46,6 @@ This is most likely a bug in the parsing of the configuration file. The way it's
 
 ### Nothing happens when I use the format shortcut 
 Open the Command Palette (`CMD + P`) and check if you have the `Format Document` option available. If you don't... have you tried turning it off and on again? Seriously, something is off, try restarting VS Code and/or re-installing the extension.
+
+### I get a `java.lang.Error`
+This is again a failure in the parsing of the configuration file. If this happens, check if your config file contains unwrapped string literals (i.e. strings without the quotes) that have a `/` in it (e.g. `some/path`). This is a known bug [that is already being addressed](https://github.com/unicredit/shocon/pull/21). An easy workaround is to wrap those strings in quotes (e.g. `"some/path"`).
