@@ -2,7 +2,7 @@
 
 Visual Studio Code extension for formatting Scala code with [scalafmt](https://github.com/scalameta/scalafmt).
 
-> # 🔥 WARNING: This is currently under development and far from stable. Use at your own risk! If you get stuck refer to the [Troubleshooting](/#TroubleShooting) section below 👇
+> # 🔥 WARNING: This is currently under development and far from stable. Use at your own risk! If you get stuck refer to the [Troubleshooting](#troubleshooting) section below 👇
 
 ![vscode-scalafmt](https://thumbs.gfycat.com/CautiousTeemingCatfish-size_restricted.gif)
 
