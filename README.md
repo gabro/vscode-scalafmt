@@ -36,3 +36,13 @@ It respects the `editor.formatOnSave` setting.
 
 ## Configuration
 Create a `.scalafmt.conf` file as described in http://scalameta.org/scalafmt/#Configuration. By default the extension will look for this file in `${workspaceRoot}/.scalafmt.conf`. You can customize this path with the `scalafmt.configFilePath` setting of VS Code.
+
+## Troubleshooting
+### I get a Scala syntax error when formatting
+The file you're formatting needs to be syntactically correct for Scalafmt to work. Fix the syntax of your code and retry.
+
+### I get a weird `null`-related error or a `MatchError`
+This is most likely a bug in the parsing of the configuration file. The way it's currently done is hackish (to use kind words). If you face one of these, please open an issue including the entire `.scalafmt.conf` you're using.
+
+### Nothing happens when I use the format shortcut 
+Open the Command Palette (`CMD + P`) and check if you have the `Format Document` option available. If you don't... have you tried turning it off and on again? Seriously, something is off, try restaring VS Code and/or re-installing the extension.
