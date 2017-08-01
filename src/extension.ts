@@ -3,6 +3,8 @@ import * as vscode from 'vscode';
 import { format } from 'scalafmt';
 import { statSync, readFileSync } from 'fs';
 
+const scalaLanguageId = 'scala';
+
 // courtesy of
 // https://github.com/esbenp/prettier-vscode/blob/7431dd3dc8c0e324be98378efcd1a90ce4f547fa/src/PrettierEditProvider.ts#L162
 function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
@@ -19,7 +21,7 @@ function retrieveConfig(): string | undefined {
   }
 }
 
-function formatDocument(document: vscode.TextDocument, range?: vscode.Range): vscode.TextEdit[] {
+function formatDocument(document: vscode.TextDocument, range: vscode.Range | undefined, output: vscode.OutputChannel): vscode.TextEdit[] {
   try {
     const scalafmtConfig = retrieveConfig(); 
     const formattedFile = format(
@@ -27,32 +29,83 @@ function formatDocument(document: vscode.TextDocument, range?: vscode.Range): vs
       scalafmtConfig,
       range ? [{ start: range.start.line, end: range.end.line + 1 }] : undefined
     );
+    output.clear();
     return [vscode.TextEdit.replace(fullDocumentRange(document), formattedFile)];
   } catch (e) {
     console.error(e);
-    vscode.window.showErrorMessage(`Error while formatting document: ${e}`);
+    output.clear();
+    output.appendLine('An error occurred while formatting this file with Scalafmt:\n');
+    output.append(e);
+    output.appendLine('\nIf this is unexpected, consider filing an issue at https://github.com/gabro/vscode-scalafmt/issues/new');
+    vscode.window.showErrorMessage(
+      `Error while formatting document: ${e}`,
+      'Show full output'
+    ).then(selection => {
+      switch(selection) {
+        case 'Show full output': output.show(true);
+      }
+    });
     return [];
   }
 }
 
+function createScalafmtStatusBarItem(): vscode.StatusBarItem {
+  const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, -1);
+  item.text = 'Scalafmt';
+  item.command = 'scalafmt.open-output';
+  return item;
+}
+
+function showOrHideScalafmtStatusBarItem(editor: vscode.TextEditor, statusBarItem: vscode.StatusBarItem): void {
+    if (!editor) {
+      return;
+    }
+    const { scheme } = editor.document.uri;
+    if (scheme === 'debug' || scheme === 'output') {
+      return;
+    }
+    if (editor.document.languageId === scalaLanguageId) {
+      statusBarItem.show();
+    } else {
+      statusBarItem.hide();
+    }
+}
 
 export function activate(context: vscode.ExtensionContext) {
 
-  let formattingEditProvider = vscode.languages.registerDocumentFormattingEditProvider('scala', {
+  const scalafmtOutput = vscode.window.createOutputChannel('Scalafmt');
+
+  const formattingEditProvider = vscode.languages.registerDocumentFormattingEditProvider(scalaLanguageId, {
       provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-        return formatDocument(document);
+        return formatDocument(document, undefined, scalafmtOutput);
       }
     }
   );
 
-  let rangeFormattingEditProvider = vscode.languages.registerDocumentRangeFormattingEditProvider('scala', {
+  const rangeFormattingEditProvider = vscode.languages.registerDocumentRangeFormattingEditProvider(scalaLanguageId, {
       provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range): vscode.TextEdit[] {
-        return formatDocument(document, range);
+        return formatDocument(document, range, scalafmtOutput);
       }
     }
   );
 
-  context.subscriptions.push(formattingEditProvider, rangeFormattingEditProvider);
+  const statusBarItem = createScalafmtStatusBarItem();
+
+  const statusBarItemDisplayer = vscode.window.onDidChangeActiveTextEditor(editor => {
+    showOrHideScalafmtStatusBarItem(editor, statusBarItem);
+  });
+  showOrHideScalafmtStatusBarItem(vscode.window.activeTextEditor, statusBarItem);
+
+  const openScalafmtOutput = vscode.commands.registerCommand('scalafmt.open-output', () => {
+    scalafmtOutput.show();
+  });
+
+  context.subscriptions.push(
+    formattingEditProvider,
+    rangeFormattingEditProvider,
+    statusBarItemDisplayer,
+    scalafmtOutput
+  );
 }
 
 export function deactivate() {}
