@@ -10,15 +10,13 @@ function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
   return new vscode.Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 }
 
-// FIXME(gabro): currently blocked by https://github.com/olafurpg/metaconfig/issues/28
 function retrieveConfig(): string | undefined {
-  return "";
-  // const configFilePath =
-  //   vscode.workspace.getConfiguration('scalafmt').configFilePath
-  //   .replace('${workspaceRoot}', vscode.workspace.rootPath);
-  // if (statSync(configFilePath)) {
-  //   return readFileSync(configFilePath, 'utf8');
-  // }
+  const configFilePath =
+    vscode.workspace.getConfiguration('scalafmt').configFilePath
+    .replace('${workspaceRoot}', vscode.workspace.rootPath);
+  if (statSync(configFilePath)) {
+    return readFileSync(configFilePath, 'utf8');
+  }
 }
 
 function formatDocument(document: vscode.TextDocument, range?: vscode.Range): vscode.TextEdit[] {
