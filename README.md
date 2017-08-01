@@ -45,4 +45,4 @@ The file you're formatting needs to be syntactically correct for Scalafmt to wor
 This is most likely a bug in the parsing of the configuration file. The way it's currently done is hackish (to use kind words). If you face one of these, please open an issue including the entire `.scalafmt.conf` you're using.
 
 ### Nothing happens when I use the format shortcut 
-Open the Command Palette (`CMD + P`) and check if you have the `Format Document` option available. If you don't... have you tried turning it off and on again? Seriously, something is off, try restaring VS Code and/or re-installing the extension.
+Open the Command Palette (`CMD + P`) and check if you have the `Format Document` option available. If you don't... have you tried turning it off and on again? Seriously, something is off, try restarting VS Code and/or re-installing the extension.
