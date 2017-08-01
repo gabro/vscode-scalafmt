@@ -1,7 +1,7 @@
 {
   "name": "vscode-scalafmt",
   "displayName": "Scalafmt",
-  "description": "Format Scala code using scalafmt",
+  "description": "Format Scala code using Scalafmt",
   "version": "0.0.1",
   "publisher": "gabro",
   "repository": {
@@ -22,6 +22,7 @@
     "*"
   ],
   "main": "./out/src/extension",
+  "icon": "icon.png",
   "contributes": {
     "configuration": {
       "type": "object",
