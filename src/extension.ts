@@ -1,7 +1,7 @@
 'use strict';
 import * as vscode from 'vscode';
 import { format } from 'scalafmt';
-import { statSync, readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 const scalaLanguageId = 'scala';
 
@@ -16,7 +16,7 @@ function retrieveConfig(): string | undefined {
   const configFilePath =
     vscode.workspace.getConfiguration('scalafmt').configFilePath
     .replace('${workspaceRoot}', vscode.workspace.rootPath);
-  if (statSync(configFilePath)) {
+  if (existsSync(configFilePath)) {
     return readFileSync(configFilePath, 'utf8');
   }
 }
