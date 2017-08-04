@@ -4,6 +4,7 @@ import { format } from 'scalafmt';
 import { existsSync, readFileSync } from 'fs';
 
 const scalaLanguageId = 'scala';
+const sbtLanguageId = 'sbt';
 
 // courtesy of
 // https://github.com/esbenp/prettier-vscode/blob/7431dd3dc8c0e324be98378efcd1a90ce4f547fa/src/PrettierEditProvider.ts#L162
@@ -21,11 +22,12 @@ function retrieveConfig(): string | undefined {
   }
 }
 
-function formatDocument(document: vscode.TextDocument, range: vscode.Range | undefined, output: vscode.OutputChannel): vscode.TextEdit[] {
+function formatDocument(document: vscode.TextDocument, isSbt: Boolean, range: vscode.Range | undefined, output: vscode.OutputChannel): vscode.TextEdit[] {
   try {
     const scalafmtConfig = retrieveConfig(); 
     const formattedFile = format(
       document.getText(),
+      isSbt,
       scalafmtConfig,
       range ? [{ start: range.start.line, end: range.end.line + 1 }] : undefined
     );
@@ -75,19 +77,23 @@ export function activate(context: vscode.ExtensionContext) {
 
   const scalafmtOutput = vscode.window.createOutputChannel('Scalafmt');
 
-  const formattingEditProvider = vscode.languages.registerDocumentFormattingEditProvider(scalaLanguageId, {
-      provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-        return formatDocument(document, undefined, scalafmtOutput);
-      }
-    }
-  );
+  const supportedLanguages = [scalaLanguageId, sbtLanguageId];
 
-  const rangeFormattingEditProvider = vscode.languages.registerDocumentRangeFormattingEditProvider(scalaLanguageId, {
-      provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range): vscode.TextEdit[] {
-        return formatDocument(document, range, scalafmtOutput);
+  const formattingEditProviders = supportedLanguages.map(languageId => {
+    return vscode.languages.registerDocumentFormattingEditProvider(languageId, {
+      provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
+        return formatDocument(document, languageId === sbtLanguageId, undefined, scalafmtOutput);
       }
-    }
-  );
+    });
+  });
+
+  const rangeFormattingEditProviders = supportedLanguages.map(languageId => {
+    return vscode.languages.registerDocumentRangeFormattingEditProvider(scalaLanguageId, {
+      provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range): vscode.TextEdit[] {
+        return formatDocument(document, languageId === sbtLanguageId, range, scalafmtOutput);
+      }
+    });
+  });
 
   const statusBarItem = createScalafmtStatusBarItem();
 
@@ -101,8 +107,8 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(
-    formattingEditProvider,
-    rangeFormattingEditProvider,
+    ...formattingEditProviders,
+    ...rangeFormattingEditProviders,
     statusBarItemDisplayer,
     scalafmtOutput
   );

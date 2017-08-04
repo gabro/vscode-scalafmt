@@ -44,7 +44,7 @@
     "build": "vsce package"
   },
   "dependencies": {
-    "scalafmt": "^1.1.0-beta.4"
+    "scalafmt": "^1.1.0-beta.5"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
