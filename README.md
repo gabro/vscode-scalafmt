@@ -6,16 +6,19 @@ Visual Studio Code extension for formatting Scala code with [scalafmt](https://g
 
 ![vscode-scalafmt](https://thumbs.gfycat.com/CautiousTeemingCatfish-size_restricted.gif)
 
-## Try this out
-The extension is not yet published on the Marketplace, so you will need to build it from source.
+## Try this out!
+This extension is published on the Marketplace. Just search for `vscode-scalafmt` and install it!
 
-1. Clone this repo
-2. Run `npm install` to install its dependencies
-3. Run `npm run build`
+> ## Building from source
+> You can also try the latest unpublished version by building from source:
 
-Now you should have a file named `vscode-scalafmt-0.0.1.vsix` in the current directory.
+> 1. Clone this repo
+> 2. Run `npm install` to install its dependencies
+> 3. Run `npm run build`
 
-Open VS Code, open the Command Palette (`CMD + Shift + P`) and select `Install from VSIX...`. Now pick the file above and you should be ready to go! 
+> Now you should have a file named `vscode-scalafmt-{version}.vsix` in the current directory.
+
+> Open VS Code, open the Command Palette (`CMD + Shift + P`) and select `Install from VSIX...`. Now pick the file above and you should be ready to go! 
 
 ## How to use
 
