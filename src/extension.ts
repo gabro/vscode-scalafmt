@@ -29,7 +29,7 @@ async function formatDocument(document: vscode.TextDocument, isSbt: Boolean, ran
     title: "Formatting with Scalafmt..."
   }, progress => new Promise<vscode.TextEdit[]>((resolve, reject) => {
     try {
-      const scalafmtConfig = retrieveConfig(); 
+      const scalafmtConfig = retrieveConfig();
       const formattedFile = format(
         document.getText(),
         isSbt,
@@ -55,7 +55,7 @@ async function formatDocument(document: vscode.TextDocument, isSbt: Boolean, ran
       reject([]);
     }
   }));
-  
+
 }
 
 function createScalafmtStatusBarItem(): vscode.StatusBarItem {
@@ -89,7 +89,8 @@ export function activate(context: vscode.ExtensionContext) {
   const formattingEditProviders = supportedLanguages.map(languageId => {
     return vscode.languages.registerDocumentFormattingEditProvider(languageId, {
       async provideDocumentFormattingEdits(document: vscode.TextDocument): Promise<vscode.TextEdit[]> {
-        return formatDocument(document, languageId === sbtLanguageId, undefined, scalafmtOutput);
+        const isSbt = document.fileName.endsWith(".sbt")
+        return formatDocument(document, isSbt, undefined, scalafmtOutput);
       }
     });
   });
@@ -97,7 +98,8 @@ export function activate(context: vscode.ExtensionContext) {
   const rangeFormattingEditProviders = supportedLanguages.map(languageId => {
     return vscode.languages.registerDocumentRangeFormattingEditProvider(scalaLanguageId, {
       async provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range): Promise<vscode.TextEdit[]> {
-        return formatDocument(document, languageId === sbtLanguageId, range, scalafmtOutput);
+        const isSbt = document.fileName.endsWith(".sbt")
+        return formatDocument(document, isSbt, range, scalafmtOutput);
       }
     });
   });
