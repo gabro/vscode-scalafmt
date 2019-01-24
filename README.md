@@ -1,8 +1,16 @@
+
+# DEPRECATED
+
+This extension is now deprecated in favor of [Metals](https://scalameta.org/metals).
+
+Read more about the deprecation [here](./MIGRATING.md).
+
+---
+
 # vscode-scalafmt
 
-Visual Studio Code extension for formatting Scala code with [scalafmt](https://github.com/scalameta/scalafmt).
 
-> # 🔥 WARNING: This is currently under development and far from stable. Use at your own risk! If you get stuck refer to the [Troubleshooting](#troubleshooting) section below 👇
+Visual Studio Code extension for formatting Scala code with [scalafmt](https://github.com/scalameta/scalafmt).
 
 ![vscode-scalafmt](https://thumbs.gfycat.com/CautiousTeemingCatfish-size_restricted.gif)
 
@@ -18,7 +26,7 @@ This extension is published on the Marketplace. Just search for `vscode-scalafmt
 
 > Now you should have a file named `vscode-scalafmt-{version}.vsix` in the current directory.
 
-> Open VS Code, open the Command Palette (`CMD + Shift + P`) and select `Install from VSIX...`. Now pick the file above and you should be ready to go! 
+> Open VS Code, open the Command Palette (`CMD + Shift + P`) and select `Install from VSIX...`. Now pick the file above and you should be ready to go!
 
 ## How to use
 
@@ -47,7 +55,7 @@ The file you're formatting needs to be syntactically correct for Scalafmt to wor
 ### I get a weird `null`-related error or a `MatchError`
 This is most likely a bug in the parsing of the configuration file. The way it's currently done is hackish (to use kind words). If you face one of these, please open an issue including the entire `.scalafmt.conf` you're using.
 
-### Nothing happens when I use the format shortcut 
+### Nothing happens when I use the format shortcut
 Open the Command Palette (`CMD + P`) and check if you have the `Format Document` option available. If you don't... have you tried turning it off and on again? Seriously, something is off, try restarting VS Code and/or re-installing the extension.
 
 ### I get a `java.lang.Error`

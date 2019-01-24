@@ -1,6 +1,6 @@
 {
   "name": "vscode-scalafmt",
-  "displayName": "Scalafmt",
+  "displayName": "DEPRECATED: Scalafmt",
   "description": "Format Scala code using Scalafmt",
   "version": "0.1.2",
   "publisher": "gabro",
@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "engines": {
-    "vscode": "^1.12.0"
+    "vscode": "^1.27.0"
   },
   "categories": [
     "Formatters"
@@ -45,14 +45,16 @@
     "build": "vsce package"
   },
   "dependencies": {
-    "scalafmt": "^1.1.0-beta.5"
+    "scalafmt": "^1.1.0-beta.5",
+    "showdown": "^1.9.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.40",
+    "@types/showdown": "^1.9.2",
     "mocha": "^2.3.3",
-    "typescript": "^2.0.3",
-    "vsce": "^1.29.0",
-    "vscode": "^1.0.0"
+    "typescript": "^3.2.0",
+    "vsce": "^1.54.0",
+    "vscode": "^1.1.0"
   }
 }
