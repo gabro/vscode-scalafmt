@@ -2,7 +2,7 @@
   "name": "vscode-scalafmt",
   "displayName": "DEPRECATED: Scalafmt",
   "description": "Format Scala code using Scalafmt",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "gabro",
   "repository": {
     "type": "git",
